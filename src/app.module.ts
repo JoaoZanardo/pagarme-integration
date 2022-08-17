@@ -1,4 +1,3 @@
-import { SendGridModule, SendGridService } from '@anchan828/nest-sendgrid';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CartsModule } from './carts/carts.module';
@@ -11,9 +10,6 @@ import { TransactionsModule } from './transactions/transactions.module';
     PrismaModule,
     TransactionsModule,
     ConfigModule.forRoot(),
-    SendGridModule.forRoot({
-      apikey: process.env.SENDGRID_API_KEY,
-    }),
   ],
   controllers: [],
   providers: [],

@@ -1,4 +1,3 @@
-import { SendGridService } from '@anchan828/nest-sendgrid';
 import { Injectable } from '@nestjs/common';
 import { cpf } from 'cpf-cnpj-validator';
 import * as pagarme from 'pagarme';
@@ -7,10 +6,7 @@ import { CreditCard } from '../model/creditCard.type';
 import { Customer } from '../model/customer.type';
 import { Payment } from '../model/payment';
 
-@Injectable()
 export class PagarMeProvider {
-    constructor(private readonly sendGrid: SendGridService) { }
-
     async process(
         transactionId: string,
         total: number,
@@ -125,7 +121,6 @@ export class PagarMeProvider {
         });
 
         const response = await client.transactions.create(transactionParams);
-        await this.sendEmail(customer.email, transactionId, total);
 
         return {
             statusCode: 201,
@@ -150,14 +145,5 @@ export class PagarMeProvider {
         }
 
         return transactions;
-    }
-
-    async sendEmail(email: string, transactionId: string, total: number): Promise<void> {
-        await this.sendGrid.send({
-            to: email,
-            from: "joaozzz0105@gmail.com",
-            subject: "Successful purchase",
-            text: `${transactionId}, ${total}`,
-        });
     }
 }
