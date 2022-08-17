@@ -128,7 +128,7 @@ export class PagarMeProvider {
         };
     }
 
-    async find(): Promise<object[] | []> {
+    async findAll(): Promise<object[] | []> {
         const client = await pagarme.client.connect({
             api_key: process.env.PAGARME_API_KEY
         });

@@ -62,20 +62,7 @@ export class TransactionsController {
 
 
   @Get('')
-  async getFrom() {
-    return await this.transactionsService.transactionsFromProvider();
+  async getTransactionsFromProvider() {
+    return await this.transactionsService.getTransactionsFromProvider();
   }
-
-  // async findAll() {
-  //   try {
-  //     const transactions = await this.transactionsService.find();
-
-  //     return {
-  //       status: 200,
-  //       transactions
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
 }

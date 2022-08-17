@@ -74,8 +74,8 @@ export class TransactionsService {
         }
     }
 
-    async transactionsFromProvider() {
-        return await this.paymentProvider.find()
+    async getTransactionsFromProvider() {
+        return await this.paymentProvider.findAll()
     }
 
     async find(id?: string): Promise<TransactionPrisma[] | TransactionPrisma> {
