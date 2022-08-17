@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
 import { parsePhoneNumber } from 'libphonenumber-js';
 import { CartsService } from 'src/carts/service/carts.service';
 import { validBody } from '../helpers/valid-boyd';
@@ -19,10 +19,10 @@ export class TransactionsController {
   async create(@Body() body: CreateTransactionDto): Promise<any> {
     try {
       const isValid = await validBody(body);
-      if (!isValid) return { statusCode: 400, message: 'Error on validate schema' };
+      if (!isValid) return new BadRequestException('Error on validate schema');
 
       const cart = await this.cartService.findOne(body.cartId);
-      if (!cart) return { statusCode: 404, message: 'Cart not found' };
+      if (!cart) return new NotFoundException('Cart not found');
 
       const customer: Customer = {
         name: body.customerName,
